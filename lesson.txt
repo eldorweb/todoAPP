@@ -1,0 +1,105 @@
+
+// import { FlashList } from '@shopify/flash-list';
+import { FlashList } from '@shopify/flash-list';
+import React, { Fragment } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+
+
+
+function App(): React.JSX.Element {
+  const scrollViewList = Array.from({ length: 100 }, (_, i) => i + 1);
+  return (
+    // View - scroll bolmaydi
+    <Fragment>
+      <View style={styles.container1}>
+        <Text style={styles.text}>My first App</Text>
+      </View>
+
+      {/* <Pressable onPress={()=> console.log('Button Pressed')
+      }>
+        <Text>Press me</Text>
+      </Pressable>
+      <TouchableHighlight underlayColor={'#000'} onPress={()=> console.log('touchableHighlight Pressed')
+      }>
+        <Text>Press me for highlight!</Text>
+      </TouchableHighlight> */}
+
+      {/* <ScrollView style={styles.container}         //scrollviewda katta listlar bilan ishlay olmaymiz
+      contentContainerStyle={{padding: 20, gap: 20}}>
+        {
+          Array.from({ length: 100 }).map((_, index) => (
+            <View key={index} style={styles.box}>
+              <Text style={styles.text}>Box {index + 1}</Text>
+            </View>
+          ))
+        }
+      </ScrollView> */}
+
+      {/* <FlatList      //katta sizeli lislar bilan ishlashda ishlatamiz
+      contentContainerStyle={styles.container}
+      data={scrollViewList}
+      keyExtractor={item => item.toString()}
+      renderItem={({item}) => (
+        <View style={styles.box}>
+          <Text style={styles.text}>{item} - item</Text>
+        </View>
+      )} /> */}
+
+
+      <FlashList      //katta sizeli listlar bilan ishlashda ishlatamiz
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.container}
+        data={scrollViewList}
+        // horizontal
+        estimatedItemSize={100}
+        ListEmptyComponent={() => <Text>Empty</Text>}
+        ItemSeparatorComponent={() => (
+          <View style={{ borderWidth: 3, borderTopColor: 'red' }} />
+        )
+        }
+        keyExtractor={item => item.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.box}>
+            <Text style={styles.text}>{item} - items</Text>
+          </View>
+        )} />
+
+
+    </Fragment>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    gap: 10,
+    paddingHorizontal: 20,
+  },
+  container1: {
+    backgroundColor: 'blue',
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#ff0000',
+    textAlign: 'center',
+  },
+  box: {
+    width: '100%',
+    height: 100,
+    backgroundColor: 'green',
+    borderWidth: 1,
+    borderColor: 'red',
+    borderRadius: 20,
+    padding: 20,
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+});
+
+export default App;
